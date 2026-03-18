@@ -5,7 +5,7 @@ public:
         long long  totalHours =0;
 
         for(auto x : piles ){
-            totalHours += ceil((double)x/hour);
+            totalHours += (x+hour-1)/hour;
         }
         return totalHours;
     }
