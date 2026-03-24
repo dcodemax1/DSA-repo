@@ -19,7 +19,7 @@ public:
             i++;
         }
 
-        int ans = 0;
+        long ans = 0;
         int MAX = INT_MAX;
         int MIN = INT_MIN;
 
