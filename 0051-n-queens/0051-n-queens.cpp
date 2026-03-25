@@ -1,63 +1,43 @@
 class Solution {
 public:
-
-    bool possible(int row, int col,vector<string>& board, int n ){
-        int duprow = row;
-        int dupcol = col;
-
-        while(row >= 0 && col >= 0){
-           if( board[row][col]=='Q')
-            return false;
-            row--;
-            col--;
-        }
-        
-        row = duprow;
-        col = dupcol;
-
-         while(col >= 0){
-           if( board[row][col]=='Q')
-            return false;
-            col--;
-        }
-
-        row = duprow;
-        col = dupcol;
-
-        while(row < n && col >=0){
-           if( board[row][col]=='Q')
-            return false;
-            row++;
-            col--;
-        }
-        return true;
-    }
-
-    void solve(int col,vector<vector<string>>& ans, vector<string>& board, int n ){
-        if(col == n){
+    void solve(int col, vector<vector<string>>& ans, vector<string>& board,
+               int n, vector<int>& leftRow, vector<int>& upperDiagnol,
+               vector<int>& lowerDiagnol) {
+        if (col == n) {
             ans.push_back(board);
         }
 
-        for(int row = 0; row<n; row++){
-            if(possible(row, col, board,n)){
-                board[row][col]= 'Q';
-                solve(col+1, ans, board, n);
-                board[row][col]='.';
+        for (int row = 0; row < n; row++) {
+            if (leftRow[row] == 0 && upperDiagnol[n - 1 + col - row] == 0 &&
+                lowerDiagnol[row + col] == 0) {
+                board[row][col] = 'Q';
+                leftRow[row] = 1;
+                upperDiagnol[n - 1 + col - row] = 1;
+                lowerDiagnol[row + col] = 1;
+                solve(col + 1, ans, board, n, leftRow, upperDiagnol,
+                      lowerDiagnol);
+                board[row][col] = '.';
+                leftRow[row] = 0;
+                upperDiagnol[n - 1 + col - row] = 0;
+                lowerDiagnol[row + col] = 0;
             }
         }
     }
 
     vector<vector<string>> solveNQueens(int n) {
-      vector<vector<string>> ans;
-      vector<string> board(n);
-      string s(n, '.');
+        vector<vector<string>> ans;
+        vector<string> board(n);
+        string s(n, '.');
+        vector<int> leftRow(n, 0);
+        vector<int> upperDiagnol(2 * n - 1, 0);
+        vector<int> lowerDiagnol(2 * n - 1, 0);
 
-      for(int i = 0; i<n; i++){
-        board[i]= s;
-      }
+        for (int i = 0; i < n; i++) {
+            board[i] = s;
+        }
 
-      solve(0, ans,board, n);
+        solve(0, ans, board, n, leftRow, upperDiagnol, lowerDiagnol);
 
-       return ans; 
+        return ans;
     }
 };
