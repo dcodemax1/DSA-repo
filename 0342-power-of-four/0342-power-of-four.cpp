@@ -1,6 +1,19 @@
 class Solution {
 public:
+
+// Recursive Approach 
+
     bool isPowerOfFour(int n) {
+        if(n==1) return true;
+        if(n<= 0) return false;
+
+        return n%4==0 && isPowerOfFour(n/4);
+    }
+};
+
+/* Iterative Approach
+
+bool isPowerOfFour(int n) {
         if(n <= 0) return false;
 
         while(n%4==0){
@@ -9,4 +22,5 @@ public:
 
         return n==1;
     }
-};
+
+*/
