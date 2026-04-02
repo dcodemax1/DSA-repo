@@ -8,8 +8,8 @@ public:
         else if (divisor <= 0 && dividend > 0)
             sign = false;
 
-        int n = abs(dividend);
-        int d = abs(divisor);
+        long n = abs((long)dividend);
+        long d = abs((long)divisor);
 
         long ans = 0;
 
