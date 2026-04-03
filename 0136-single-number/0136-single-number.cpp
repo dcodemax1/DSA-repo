@@ -1,20 +1,16 @@
 class Solution {
 public:
+
+// Optimal Approach
+
     int singleNumber(vector<int>& nums) {
 
         int n = nums.size();
-        map<long long, int> mp;
-
-        for (int i = 0; i < n; i++) {
-            mp[nums[i]]++;
-        }
-
-        for (auto x : mp) {
-            if (x.second == 1) {
-                return x.first;
-            }
-        }
-        return -1;
+        int xorr = 0;
+       for(int i = 0; i<n; i++){
+            xorr= xorr^nums[i];
+       }
+       return xorr;
     }
 };
 
@@ -61,3 +57,22 @@ Bettre but fail for negative and large scale
  }
  return -1;
  */
+
+
+ /* Better 2 Approach
+ 
+   int n = nums.size();
+        map<long long, int> mp;
+
+        for (int i = 0; i < n; i++) {
+            mp[nums[i]]++;
+        }
+
+        for (auto x : mp) {
+            if (x.second == 1) {
+                return x.first;
+            }
+        }
+        return -1;
+
+        */
