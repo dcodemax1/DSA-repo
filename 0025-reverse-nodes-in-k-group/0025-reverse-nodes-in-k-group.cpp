@@ -8,6 +8,8 @@
  *     ListNode(int x, ListNode *next) : val(x), next(next) {}
  * };
  */
+
+ // optimal 
 class Solution {
 public:
     ListNode* findKthNode(ListNode* head, int k) {
