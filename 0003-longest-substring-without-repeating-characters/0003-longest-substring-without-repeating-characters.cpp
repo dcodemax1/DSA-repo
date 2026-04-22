@@ -1,5 +1,33 @@
 class Solution {
 public:
+    int lengthOfLongestSubstring(string s) {
+        int n = s.length();
+        int maxLen = 0;
+
+        int hash[256] = {0};
+
+        int l = 0, r = 0;
+
+        while (r < n) {
+            if (hash[s[r]] != -1) {
+                if (hash[s[r]] >= l) {
+                    l = hash[s[r]] + 1;
+                }
+            }
+            maxLen = max(maxLen, r - l + 1);
+            hash[s[r]] = r;
+            r++;
+        }
+        return maxLen;
+    }
+};
+
+/*
+class Solution {
+public:
+
+// using Map
+
     unordered_map<char, int> mp;
     int maxLen = 0;
 
@@ -21,6 +49,7 @@ public:
         return maxLen;
     }
 };
+*/
 
 /*
 class Solution {
