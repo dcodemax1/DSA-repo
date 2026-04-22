@@ -1,5 +1,30 @@
 class Solution {
 public:
+    unordered_map<char, int> mp;
+    int maxLen = 0;
+
+    int lengthOfLongestSubstring(string s) {
+        int n = s.length();
+
+        int l = 0;
+        int r = 0;
+        while (r < n) {
+            if(mp.find(s[r]) != mp.end()){
+               if(mp[s[r]]>=l){
+                l=mp[s[r]]+1;
+               }
+            }
+            maxLen = max(maxLen , r-l+1);
+            mp[s[r]]=r;
+           r++;
+        }
+        return maxLen;
+    }
+};
+
+/*
+class Solution {
+public:
 
 // Brute Force
 
@@ -19,3 +44,5 @@ public:
         return maxlen;
     }
 };
+
+*/
