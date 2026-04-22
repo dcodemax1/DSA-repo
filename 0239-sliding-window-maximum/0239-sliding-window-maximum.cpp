@@ -8,7 +8,7 @@ public:
 
         for(int i =0; i<n; i++){
             if(!dq.empty() && dq.front() < i-k+1){
-                dq.pop_back();
+                dq.front();
             }
             
             while(!dq.empty() && nums[dq.back()] <= nums[i]){
