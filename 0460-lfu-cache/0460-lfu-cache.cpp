@@ -48,7 +48,7 @@ void updateFreq(int key) {
             updateFreq(key);
         }
 
-        if (size < cap) {
+       else if (size < cap) {
             size++;
             freq[1].push_front({key, value, 1});
             mp[key] = freq[1].begin();
