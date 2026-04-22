@@ -1,6 +1,33 @@
 class Solution {
 public:
-// Optimal Approach 
+    int largestRectangleArea(vector<int>& heights) {
+        int n = heights.size();
+        stack<int> st;
+        int maxi =0;
+
+        for (int i = 0; i <= n; i++) {
+            while (!st.empty() && (i == n || heights[st.top()] >= heights[i])) {
+                int height = heights[st.top()];
+                st.pop();
+                int  width =i;
+                if (st.empty())
+                  width = i;
+                else
+                    width = i - st.top() - 1;
+
+               maxi = max(maxi, (width * height));
+            }
+            st.push(i);
+        }
+        return maxi;
+    }
+};
+
+/*class Solution {
+public:
+
+// Optimal Approach
+
     int largestRectangleArea(vector<int>& heights) {
         int n = heights.size();
         stack<int> st;
@@ -31,6 +58,9 @@ public:
         return maxArea;
     }
 };
+
+
+*/
 /*
 class Solution {
 public:
