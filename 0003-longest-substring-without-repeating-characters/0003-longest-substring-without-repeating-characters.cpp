@@ -4,7 +4,7 @@ public:
         int n = s.length();
         int maxLen = 0;
 
-        int hash[256] = {0};
+       vector<int> hash(256, -1);
 
         int l = 0, r = 0;
 
