@@ -10,12 +10,15 @@ public:
         int l = 0, r = 0;
 
         while (l < n && r < m) {
-            if (s[r] >= g[l]) {
-                cnt++;
-                l++;
+            if (s[r] < g[l]) {
+                r++;
             }
-            r++;
+            else if(s[r]>=s[l]){
+                l++;
+                r++;
+            }
+           
         }
-        return cnt;
+        return l;
     }
 };
