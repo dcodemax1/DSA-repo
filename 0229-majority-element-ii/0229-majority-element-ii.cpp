@@ -1,5 +1,39 @@
 class Solution {
 public:
+    // Brute Force
+
+    vector<int> majorityElement(vector<int>& nums) {
+        int n = nums.size();
+
+        int mini = (int)n / 3;
+
+        vector<int> res;
+
+        for (int i = 0; i < n; i++) {
+
+            if (res.empty() || res.back() != nums[i]) {
+                int cnt = 0;
+                for (int j = 0; j < n; j++) {
+
+                    if (nums[j] == nums[i]) {
+                        cnt++;
+                    }
+                }
+                if (cnt > mini) {
+
+                    res.push_back(nums[i]);
+                }
+            }
+            if (res.size() == 2)
+                break;
+        }
+
+        return res;
+    }
+};
+/*
+class Solution {
+public:
 
 // Optimal Approach
     vector<int> majorityElement(vector<int>& nums) {
@@ -54,3 +88,5 @@ public:
         return res;
     }
 };
+
+*/
