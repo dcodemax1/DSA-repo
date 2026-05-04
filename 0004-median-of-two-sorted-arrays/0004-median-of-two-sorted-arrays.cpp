@@ -27,8 +27,8 @@ public:
                 cnt++;
                 i++;
             } else {
-                if (cnt == ind2)
-                    ele2 = nums2[j];
+                if (cnt == ind1)
+                    ele1 = nums2[j];
                 if (cnt == ind2)
                     ele2 = nums2[j];
                 cnt++;
@@ -46,8 +46,8 @@ public:
         }
 
         while (j < n2) {
-            if (cnt == ind2)
-                ele2 = nums2[j];
+            if (cnt == ind1)
+                ele1 = nums2[j];
             if (cnt == ind2)
                 ele2 = nums2[j];
             cnt++;
