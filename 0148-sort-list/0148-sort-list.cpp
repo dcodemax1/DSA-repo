@@ -65,7 +65,7 @@ public:
         secondHead = sortList(secondHead);
 
         return merge(firstHead, secondHead);
-        ;
+        
     }
 };
 
