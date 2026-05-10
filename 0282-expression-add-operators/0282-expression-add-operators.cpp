@@ -1,21 +1,19 @@
 class Solution {
 public:
-    void solve(string s, int target, int idx, string path, vector<string>& ans,
-               long  eval, long residual) {
-        if (idx == s.length()) {
+    void solve(int idx, string s, int target, int n, string path,
+               vector<string>& ans, int eval, int resi) {
+
+        if (idx == n) {
             if (eval == target) {
                 ans.push_back(path);
-                 
             }
             return;
-           
         }
 
         string currStr;
         long num = 0;
 
-        for (int j = idx;j < s.length(); j++) {
-
+        for (int j = idx; j < n; j++) {
             if (j > idx && s[idx] == '0')
                 return;
 
@@ -23,18 +21,25 @@ public:
             num = num * 10 + (s[j] - '0');
 
             if (idx == 0) {
-                solve(s, target, j + 1, path + currStr, ans, num, num);
+                solve(j + 1, s, target, n, path + currStr, ans, num, num);
             } else {
-                solve(s, target, j + 1, path + "+" + currStr, ans, eval+num, num);
-                solve(s, target, j + 1, path + "-" + currStr, ans, eval-num,-num);
-                solve(s, target, j + 1, path + "*" + currStr, ans,
-                      (eval - residual + residual * num),  residual*num);
+                solve(j + 1, s, target, n, path + "+" + currStr, ans,
+                      eval + num, num);
+
+                solve(j + 1, s, target, n, path + "-" + currStr, ans,
+                      eval - num, -num);
+
+                solve(j + 1, s, target, n, path + "*" + currStr, ans,
+                      (eval - resi) + (resi * num), resi * num);
             }
         }
     }
 
     vector<string> addOperators(string s, int target) {
         vector<string> ans;
-        solve(s, target, 0, "", ans, 0, 0); return ans;
+        int n = s.length();
+
+        solve(0, s, target, n, "", ans, 0, 0);
+        return ans;
     }
 };
