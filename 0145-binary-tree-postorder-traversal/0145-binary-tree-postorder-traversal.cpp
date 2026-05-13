@@ -11,7 +11,50 @@
  * };
  */
 
- // Iterative Approach using 2 stack 
+ // Iterative Traversal using 1 stack 
+ 
+class Solution {
+public:
+    void findPostOrder(TreeNode* root, vector<int>& postOrder) {
+        stack<TreeNode*> st;
+        TreeNode* curr = root;
+
+        while (curr != NULL || !st.empty()) {
+            if (curr != NULL) {
+                st.push(curr);
+                curr = curr->left;
+            } else {
+                TreeNode* temp = st.top()->right;
+
+                if (temp == NULL) {
+                    temp = st.top();
+                    st.pop();
+                    postOrder.push_back(temp->val);
+
+                    while (!st.empty() && temp == st.top()->right) {
+                        temp = st.top();
+                        st.pop();
+
+                        postOrder.push_back(temp->val);
+                    }
+                } else {
+                    curr = temp;
+                }
+            }
+        }
+    }
+
+    vector<int> postorderTraversal(TreeNode* root) {
+        vector<int> postOrder;
+
+        findPostOrder(root, postOrder);
+
+        return postOrder;
+    }
+};
+
+/*
+ // Iterative Approach using 2 stack
 class Solution {
 public:
     vector<int> postorderTraversal(TreeNode* root) {
@@ -31,7 +74,7 @@ public:
                 st1.push(root->left);
             if (root->right != NULL)
                 st1.push(root->right);
-            
+
         }
         while (!st2.empty()) {
             postOrder.push_back(st2.top()->val);
@@ -40,6 +83,7 @@ public:
         return postOrder;
     }
 };
+*/
 
 /*
 // recusrive traversal approach
