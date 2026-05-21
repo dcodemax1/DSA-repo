@@ -12,22 +12,21 @@
  */
 class Solution {
 public:
-    int findPathDown(TreeNode* root, int& maxi) {
+    int findSumPath(TreeNode* root, int& maxi) {
         if (root == NULL)
             return 0;
 
-        int lh = max(0, findPathDown(root->left, maxi));
-        int rh = max(0, findPathDown(root->right, maxi));
+        int lh = max(0, findSumPath(root->left, maxi));
+        int rh = max(0, findSumPath(root->right, maxi));
 
         maxi = max(maxi, (lh + rh + root->val));
 
-        return max(lh , rh) + root->val;
+        return max(lh, rh) + root->val;
     }
-
     int maxPathSum(TreeNode* root) {
         int maxi = INT_MIN;
 
-        findPathDown(root, maxi);
+        findSumPath(root, maxi);
         return maxi;
     }
 };
