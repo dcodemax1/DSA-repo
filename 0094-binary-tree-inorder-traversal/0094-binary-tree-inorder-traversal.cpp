@@ -10,6 +10,46 @@
  * right(right) {}
  * };
  */
+
+ // Morris Traversal
+ 
+class Solution {
+public:
+    vector<int> inorderTraversal(TreeNode* root) {
+        vector<int> inorder;
+
+        TreeNode* curr = root;
+
+        while (curr != NULL) {
+            if (curr->left == NULL) {
+                inorder.push_back(curr->val);
+                curr = curr->right;
+            } else {
+                TreeNode* prev = curr->left;
+
+                while (prev->right && prev->right != curr) {
+                    prev = prev->right;
+                }
+
+                if (prev->right == NULL) {
+                    prev->right = curr;
+                    curr = curr->left;
+                }
+
+                else {
+                    prev->right = NULL;
+                    inorder.push_back(curr->val);
+                    curr = curr->right;
+                }
+            }
+        }
+        return inorder;
+    }
+};
+
+/*
+ // Iterative Approach
+
 class Solution {
 public:
     vector<int> inorderTraversal(TreeNode* root) {
@@ -33,3 +73,26 @@ public:
         return inorder;
     }
 };
+*/
+
+/*  Brute Force
+
+class Solution {
+public:
+    vector<int> inorderTraversal(TreeNode* root) {
+        vector<int>result;
+        inorderTraversal(root,result);
+        return result;
+    }
+  void inorderTraversal(TreeNode* root, vector<int>& result){
+    if(root==nullptr)
+    return ;
+
+    inorderTraversal(root->left,result);
+    result.push_back(root->val);
+    inorderTraversal(root->right,result);
+
+  }
+};
+
+*/
