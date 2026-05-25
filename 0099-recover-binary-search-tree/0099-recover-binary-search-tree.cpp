@@ -6,34 +6,41 @@
  *     TreeNode *right;
  *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
  *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
- *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left),
- * right(right) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
+
+ // Brute Force 
+ 
 class Solution {
 public:
-    TreeNode* first = nullptr;
-    TreeNode* second = nullptr;
-    TreeNode* prev = nullptr;
+
+  void inorder(TreeNode* root, vector<int>& arr){
+    if (root== NULL) return;
+
+    inorder(root->left, arr);
+    arr.push_back(root->val);
+    inorder(root->right, arr);
+  }
+
+  void  replaceValues(TreeNode* root , int& i ,vector<int>& arr ){
+    if(root==NULL) return;
+    replaceValues(root->left, i , arr);
+
+    root->val = arr[i];
+    i++;
+
+    replaceValues(root->right, i , arr);
+
+  }
 
     void recoverTree(TreeNode* root) {
-        inorderTraversal(root);
-        swap(first->val, second->val);
-    }
+        vector<int> arr;
 
-    void inorderTraversal(TreeNode* root) {
-        if (!root)
-            return;
+        inorder(root, arr);
+        sort(arr.begin(), arr.end());
 
-        inorderTraversal(root->left);
-
-        if (prev && root->val < prev->val) {
-            if (!first)
-                first = prev;
-            second = root;
-        }
-        prev = root;
-
-        inorderTraversal(root->right);
+        int i = 0;
+        replaceValues(root, i, arr);
     }
 };
