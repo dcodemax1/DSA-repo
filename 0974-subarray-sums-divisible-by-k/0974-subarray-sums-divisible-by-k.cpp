@@ -1,3 +1,32 @@
+class Solution {
+public:
+
+// Optimal Approach 
+
+    unordered_map<int, int> mp;
+    int subarraysDivByK(vector<int>& nums, int k) {
+        int sum = 0;
+        int result = 0;
+        mp[0] = 1;
+
+        for (int num : nums) {
+            sum += num;
+           int rem = sum % k;
+
+            if (rem < 0) {
+                rem += k;
+            }
+
+            if (mp.find(rem) != mp.end()) {
+                result += mp[rem];
+            }
+
+            mp[rem]++;
+        }
+        return result;
+    }
+};
+
 /*class Solution {
 public:
     int subarraysDivByK(vector<int>& nums, int k) {
@@ -47,36 +76,3 @@ public:
 };
 
 */
-
-class Solution {
-public:
-    int subarraysDivByK(std::vector<int>& nums, int k) {
-       
-        int count = 0;
-        int prefixSum = 0;
-        std::unordered_map<int, int> prefixMap;
-        prefixMap[0] = 1; 
-
-        for (int num : nums) {
-           
-            prefixSum += num;
-            
-           
-            int mod = prefixSum % k;
-       
-            if (mod < 0) {
-                mod += k;
-            }
-            
-            
-            if (prefixMap.find(mod) != prefixMap.end()) {
-                count += prefixMap[mod];
-                prefixMap[mod] += 1;
-            } else {
-                prefixMap[mod] = 1;
-            }
-        }
-        
-        return count; 
-    }
-};
