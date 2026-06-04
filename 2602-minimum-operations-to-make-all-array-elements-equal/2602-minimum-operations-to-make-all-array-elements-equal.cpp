@@ -1,31 +1,33 @@
 class Solution {
 public:
-    using ll=long long;
-    vector<ll>minOperations(vector<int>&nums,vector<int>&queries){
-        int n=nums.size();
+    vector<long long> minOperations(vector<int>& nums, vector<int>& queries) {
+        long long n = nums.size();
 
-        sort(nums.begin(),nums.end());
+        sort(nums.begin(), nums.end());
 
-        vector<ll>pref(n);
-        pref[0]=nums[0];
+        vector<long long> prefix(n+1,0);
+        prefix[0] = nums[0];
+        vector<long long> ans;
 
-        for(int i=1;i<n;i++){
-            pref[i]=pref[i-1]+nums[i];
+        for (int i = 0; i < n; i++) {
+            prefix[i+1] = prefix[i] + nums[i];
         }
+        nums.insert(nums.begin(), 0);
+        n++;
 
-        vector<ll>ans;
+        for (auto q : queries) {
+            long long lidx =
+                lower_bound(nums.begin(), nums.end(), q) - nums.begin()-1;
+            long long uidx =
+                upper_bound(nums.begin(), nums.end(), q) - nums.begin();
 
-        for(int q:queries){
+            long long val = q * lidx - (prefix[lidx] - prefix[0]);
 
-            int idx=lower_bound(nums.begin(),nums.end(),q)-nums.begin();
-
-            ll left=(ll) q*idx-(idx>0 ? pref[idx-1] : 0);
-            ll right=(pref[n-1]-(idx>0 ? pref[idx-1] : 0)) - (ll) q*(n-idx);
-
-            ans.push_back(left + right);
-
+            if (uidx != n) {
+                val += (prefix[n - 1] - prefix[uidx - 1]) - q * (n - uidx);
+            }
+            ans.push_back(val);
         }
-
         return ans;
     }
 };
