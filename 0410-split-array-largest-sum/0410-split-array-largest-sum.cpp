@@ -1,37 +1,42 @@
 class Solution {
 public:
-    int findminsplitSum(vector<int>& nums, int k, int mid, int n) {
-        int count = 1;
-        int splitSum = 0;
 
-        for (int i = 0; i < n; i++) {
-            if (splitSum + nums[i] <= mid) {
-                splitSum += nums[i];
-            } else {
-                count++;
-                splitSum = nums[i];
-            }
+    int helper(vector<int>& nums, int k){
+        int cnt = 1;
+        int largeSum = 0;
+        int n = nums.size();
+
+       for(auto val : nums){
+        if(largeSum + val <= k){
+            largeSum+=val;
         }
-        return count;
+        else{
+            cnt++;
+            largeSum = val;
+        }
+       }
+       return cnt;
     }
 
     int splitArray(vector<int>& nums, int k) {
         int n = nums.size();
 
-        int low = *max_element(nums.begin(), nums.end() );
-        int high = accumulate(nums.begin(), nums.end(), 0);
+        int low = *max_element(nums.begin(), nums.end());
+        int high = accumulate(nums. begin(), nums.end(), 0);
 
-        while (low <= high) {
-            int mid = low + (high - low) / 2;
+        while(low<=high){
+            int mid = low+(high-low)/2;
 
-            int splitarr = findminsplitSum(nums, k, mid, n);
+           int spilt= helper(nums, mid);
 
-            if (splitarr > k) {
-                low =mid + 1;
-            } else {
-                high = mid - 1;
-            }
+           if(spilt > k){
+             low = mid+1;
+           }
+           else{
+            high = mid-1;
+           }
         }
+
         return low;
     }
 };
