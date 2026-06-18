@@ -20,7 +20,7 @@ public:
         int rh = findRightHeight(root);
 
         if (lh == rh)
-            (1 << lh) - 1;
+         return (1 << lh) - 1;
 
         return 1 + countNodes(root->left) + countNodes(root->right);
     }
