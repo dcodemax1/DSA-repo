@@ -16,6 +16,7 @@ public:
     ListNode* oddEvenList(ListNode* head) {
 
         if(head == NULL || head->next == NULL) return head;
+
         ListNode* odd = head;
         ListNode* even = head->next;
         ListNode* evenHead = head->next;
@@ -58,7 +59,7 @@ public:
         ListNode* temp = head;
 
         if (head == NULL || head->next == NULL)
-            return head;
+            rieturn head;
         while (temp != NULL && temp->next != NULL) {
             arr.push_back( temp->val);
             temp = temp->next->next;
