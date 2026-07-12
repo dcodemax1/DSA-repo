@@ -12,28 +12,25 @@
  */
 class Solution {
 public:
-    void findInorder(TreeNode* root, int k, int& kthSmall, int& counter) {
-
-        if (!root || counter >= k)
+    void solve(TreeNode* root, int& cnt, int& ans, int k) {
+        if (root == NULL)
             return;
-
-        findInorder(root->left, k, kthSmall, counter);
-            counter++;
-
-            if (counter == k) {
-                kthSmall = root -> val;
-                return;
-            }
-        
-        findInorder(root->right, k, kthSmall, counter);
+        // left, root, right
+        solve(root->left, cnt, ans, k);
+        cnt++;
+        if (cnt == k) {
+            ans = root->val;
+            return;
+        }
+        solve(root->right, cnt, ans, k);
     }
 
-    int kthSmallest(TreeNode* root, int k) {
-        int kthSmall = INT_MIN;
-        int counter = 0;
 
-        findInorder(root, k, kthSmall, counter);
+     int kthSmallest(TreeNode* root, int k) {
+        int cnt=0;
+        int ans;
+        solve(root,cnt,ans,k);
+        return ans;
 
-        return kthSmall;
     }
 };
