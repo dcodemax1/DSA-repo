@@ -1,64 +1,25 @@
 class Solution {
 public:
-    // Optimal Approach
+    int subarray(vector<int>& nums, int k) {
+        int left = 0, right = 0, cnt = 0;
+        unordered_map<int, int> mpp;
 
-    int atMostK(vector<int>& nums, int k) {
-        int l = 0, r = 0;
-        int n = nums.size();
-        int count = 0;
-        unordered_map<int, int> mp;
+        while (right < nums.size()) {
+            mpp[nums[right]]++;
+            while (mpp.size() > k) {
+                mpp[nums[left]]--;
+                if (mpp[nums[left]] == 0) 
+                    mpp.erase(nums[left]);
 
-        while (r < n) {
-            mp[nums[r]]++;
-           
-            while (mp.size() > k) {
-                mp[nums[l]]--;
-                if (mp[nums[l]] == 0) {
-                    mp.erase(nums[l]);
+                    left = left + 1;
                 }
-                l++;
+                cnt = cnt + (right - left + 1);
+                right++;
             }
-
-            if(mp.size()<=k){
-            count += (r - l + 1);
-            }
-
-            r++;
+            return cnt;
         }
-        return count;
-    }
 
-    int subarraysWithKDistinct(vector<int>& nums, int k) {
-        return atMostK(nums, k) - atMostK(nums, k - 1);
-    }
-};
-
-/*
-class Solution {
-public:
-
-// Brute Force
-
-    int subarraysWithKDistinct(vector<int>& nums, int k) {
-        unordered_map<int, int> mp;
-
-        int n = nums.size();
-        int count = 0;
-
-        for (int i = 0; i < n; i++) {
-            mp.clear();
-            for (int j = i; j < n; j++) {
-                mp[nums[j]]++;
-
-                if (mp.size() == k) {
-                    count++;
-                } else if (mp.size() > k) {
-                    break;
-                }
-            }
+        int subarraysWithKDistinct(vector<int> & nums, int k) {
+            return subarray(nums, k) - subarray(nums, k - 1);
         }
-        return count;
-    }
-};
-
-*/
+    };
