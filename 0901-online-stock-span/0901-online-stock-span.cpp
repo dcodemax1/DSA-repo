@@ -1,23 +1,21 @@
 class StockSpanner {
 public:
-// Brute Force 
-vector<int> arr;
-int cnt = 0;
+    stack<pair<int,int>> st;
+    int ind=-1;
     StockSpanner() {
-        arr = {};
+        ind=-1;
+        
     }
     
     int next(int price) {
-        arr.push_back(price);
-        cnt = 1;
+        ind=ind+1;
 
-        for(int i = arr.size()-2; i>=0; i--){
-            if(arr[i] <= price){
-                cnt++;
-            }
-            else break;
+        while(!st.empty() && st.top().first<=price){
+            st.pop();
         }
-        return cnt;
+        int ans= ind-(st.empty()?-1: st.top().second);
+        st.push({price,ind});
+        return ans;
     }
 };
 
