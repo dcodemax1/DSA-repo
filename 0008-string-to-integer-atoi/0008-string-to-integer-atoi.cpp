@@ -1,87 +1,43 @@
 class Solution {
 public:
 
-// Recursive Approach
+    int help(string s, int i, int n,int sign, long long result)
+    {
 
-    int convert(string s, int n, int i, long ans , int sign ) {
-
-        if (i > n || !isdigit(s[i])) {
-            return sign * ans;
+        if(i >=n ||!isdigit(s[i])){
+            return sign*result;
         }
 
-        int digit = s[i] - '0';
-        ans = ans * 10 + digit;
+            result = result*10+(s[i]-'0');
 
-        int Maxi = INT_MAX, Mini = INT_MIN;
 
-        if (sign == 1 && sign * ans > Maxi)
-            return Maxi;
-        if (sign == -1 && sign * ans < Mini)
-            return Mini;
-
-      return convert(s, n, i + 1, ans, sign);
+            if(sign*result >= INT_MAX) return INT_MAX;
+            if(sign*result <= INT_MIN) return INT_MIN;
+        
+        return help(s, i+1, n, sign, result);
     }
-
     int myAtoi(string s) {
-        int n = s.length();
+        long long result = 0;
+        int n = s.size();
+        int i = 0; 
 
-        int i = 0;
-
-        while (i < n && s[i] == ' ') {
+        while(i < n && s[i] == ' ')
+        {
             i++;
         }
-
+        
         int sign = 1;
 
-        if (s[i] == '-') {
+        if(s[i] == '-')
+        {
             sign = -1;
             i++;
-        } else if (s[i] == '+') {
+        }else if(s[i] == '+')
+        {
+            sign = 1;
             i++;
         }
-
-        return convert(s, n, i, 0, sign );
+       
+       return help(s, i, n, sign, 0);     
     }
 };
-
-/*
-class Solution {
-public:
-    int myAtoi(string s) {
-        int n = s.length();
-        int i = 0;
-
-        if(i == n ) return 0;
-
-        while(i<n && s[i]==' ') {i++;}
-
-        int sign = 1;
-
-        if(s[i]== '-'){
-          sign = -1;
-          i++;
-        }
-        else if(s[i]== '+'){
-
-            i++;
-        }
-
-        long ans = 0;
-        int MAX = INT_MAX;
-        int MIN = INT_MIN;
-
-        while(i<n && isdigit(s[i])){
-            int digit = s[i]-'0';
-            ans = ans*10+digit;
-
-           if(sign == 1 && ans > MAX ) return MAX;
-           if(sign == -1 && -ans < MIN ) return MIN;
-
-           i++;
-        }
-
-        return (int)(sign * ans);
-    }
-};
-
-*/
