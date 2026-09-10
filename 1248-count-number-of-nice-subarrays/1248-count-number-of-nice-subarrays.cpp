@@ -1,32 +1,30 @@
 class Solution {
 public:
-// Optimal Approach
 
-    int atMost(vector<int>& nums, int k){
-     int n = nums.size();
+    int helper(vector<int>& nums, int k){
         int l = 0, r = 0;
-        int count =0;
-       long long sum = 0;
+        int cnt= 0;
+        int sum = 0;
+        int n = nums.size();
 
-        if(k <0) return 0;
+        while(r < n){
+            sum+=(nums[r]%2);
 
-        while (r < n) {
-            sum += (nums[r]%2);
-
-            while (sum > k) {
-                sum -= (nums[l]%2);
+            while(sum > k){
+                sum-=(nums[l]%2);
                 l++;
             }
-            if(sum <= k){
-                count+=r-l+1;
+
+            if(sum <=k){
+                cnt+=(r-l+1);
             }
+
             r++;
         }
-      
-        return count;
+        return cnt;
     }
 
     int numberOfSubarrays(vector<int>& nums, int k) {
-        return atMost(nums, k)- atMost(nums, k-1);
+        return helper(nums, k) - helper (nums, k-1);
     }
 };
