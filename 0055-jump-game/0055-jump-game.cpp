@@ -4,13 +4,15 @@ public:
         int n = nums.size();
         int maxInd = 0;
 
-        for (int i = 0; i < n; i++) {
-            if (i > maxInd)
-                return false;
-            maxInd = max(maxInd, nums[i] + i);
-            if (maxInd >= n)
+        for(int i = 0; i<n; i++){
+            if(i > maxInd ) return false;
+
+            maxInd = max(maxInd, nums[i]+i);
+            if(maxInd >=n){
                 return true;
+            }
         }
+
         return true;
     }
 };
